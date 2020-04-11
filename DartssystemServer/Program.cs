@@ -17,6 +17,7 @@ namespace DartsystemServer
             // Clients objects
             private List<TcpClient> _clients = new List<TcpClient>();
             private List<TcpClient> _waitingLobby = new List<TcpClient>();
+            private List<String> _clientnames = new List<string>();
 
             // Game stuff
             //private Dictionary<TcpClient, IGame> _gameClientIsIn = new Dictionary<TcpClient, IGame>();
@@ -60,6 +61,42 @@ namespace DartsystemServer
                     // Handle any new clients
                     if (_listener.Pending())
                         newConnectionTasks.Add(_handleNewConnection());
+
+                    foreach (TcpClient client in _waitingLobby.ToArray())
+                    {
+                        NetworkStream stream = client.GetStream();
+                        // Buffer to store the response bytes.
+                        Byte[] data = new Byte[256];
+
+                        // String to store the response ASCII representation.
+                        String responseData = String.Empty;
+
+                        // Read the first batch of the TcpServer response bytes.
+                        Int32 bytes = stream.Read(data, 0, data.Length);
+                        responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                        Console.WriteLine("Received: {0}", responseData);
+                        if (responseData.Contains("start"))//       Equals("start"))
+                        {
+                            Console.WriteLine("start game");
+                            //make match
+                        }
+
+                        //EndPoint endPoint = client.Client.RemoteEndPoint;
+                        //bool disconnected = false;
+
+                        //// Check for graceful first
+                        //Packet p = ReceivePacket(client).GetAwaiter().GetResult();
+                        //disconnected = (p?.Command == "bye");
+
+                        //// Then ungraceful
+                        //disconnected |= IsDisconnected(client);
+
+                        //if (disconnected)
+                        //{
+                        //    HandleDisconnectedClient(client);
+                        //    Console.WriteLine("Client {0} has disconnected from the Game(s) Server.", endPoint);
+                        //}
+                    }
 
                     //    // Once we have enough clients for the next game, add them in and start the game
                     //    if (_waitingLobby.Count >= _nextGame.RequiredPlayers)
@@ -173,7 +210,18 @@ namespace DartsystemServer
                 // Read the first batch of the TcpServer response bytes.
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                Console.WriteLine("Received: {0}", responseData);
+                Console.WriteLine("Receiveeed: {0}", responseData);
+
+                _clientnames.Add(responseData);
+                
+                //send all clients
+            }
+
+            public void WriteTextMessage(TcpClient client, string message)
+            {
+                var stream = new StreamWriter(client.GetStream(), Encoding.ASCII);
+                stream.WriteLine(message);
+                stream.Flush();
             }
 
             public static Lobby lobby;
