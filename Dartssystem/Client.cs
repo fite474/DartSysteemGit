@@ -10,6 +10,7 @@ namespace Dartssystem
 {
     class Client
     {
+        public List<String> _clientnames = new List<string>();
         public TcpClient TCPClient { get; set; }
         public Client()
         {
@@ -30,8 +31,13 @@ namespace Dartssystem
             StreamReader stream = new StreamReader(client.GetStream(), Encoding.ASCII);
             try
             {
-                string line = stream.ReadLine(); ;
-                return line;
+                string line = stream.ReadLine();
+                if (line.Contains("playerNames"))
+                {
+                    _clientnames.Add(line);
+                }
+                
+                return line; ;
             }
             catch (Exception e)
             {

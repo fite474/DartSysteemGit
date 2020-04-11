@@ -72,14 +72,15 @@ namespace DartsystemServer
                         String responseData = String.Empty;
 
                         // Read the first batch of the TcpServer response bytes.
-                        Int32 bytes = stream.Read(data, 0, data.Length);
-                        responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                        Console.WriteLine("Received: {0}", responseData);
-                        if (responseData.Contains("start"))//       Equals("start"))
-                        {
-                            Console.WriteLine("start game");
-                            //make match
-                        }
+                        //Int32 bytes = stream.Read(data, 0, data.Length);
+                        //responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                        //Console.WriteLine("Received: {0}", responseData);
+                        //if (responseData.Contains("start"))//       Equals("start"))
+                        //{
+                        //    Console.WriteLine("start game");
+                        //    //make match
+                        //}
+                       
 
                         //EndPoint endPoint = client.Client.RemoteEndPoint;
                         //bool disconnected = false;
@@ -211,13 +212,57 @@ namespace DartsystemServer
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                 Console.WriteLine("Receiveeed: {0}", responseData);
-
+                if (responseData.Contains("SendName"))
+                {
+                    sendAllWaitingClients();
+                    //responsedata - sendname
+                }
                 _clientnames.Add(responseData);
                 
+               //sendAllWaitingClients();
                 //send all clients
             }
 
-            public void WriteTextMessage(TcpClient client, string message)
+            private void sendAllWaitingClients()
+            {
+                string playerName = "";
+                int playerNumber = 0;
+
+                foreach (TcpClient client in _waitingLobby.ToArray())
+                {
+
+                    playerName = _clientnames[playerNumber];
+                    string msg = String.Format("playerNames {0}", playerName);
+                    playerNumber++;
+                    NetworkStream stream = client.GetStream();
+
+
+                    Byte[] data = System.Text.Encoding.ASCII.GetBytes(msg);
+                    stream.Write(data, 0, data.Length);
+                    //await SendPacket(newClient, new Packet("message", msg));
+                    Console.WriteLine("Sent: {0}", msg);
+                    // Buffer to store the response bytes.
+                    //data = new Byte[256];
+
+                    //// String to store the response ASCII representation.
+                    //String responseData = String.Empty;
+
+                    //// Read the first batch of the TcpServer response bytes.
+                    //Int32 bytes = stream.Read(data, 0, data.Length);
+                    //responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                    //Console.WriteLine("Received: {0}", responseData);
+                    //if (responseData.Contains("start"))//       Equals("start"))
+                    //{
+                    //    Console.WriteLine("start game");
+                    //    //make match
+                    //}
+
+
+                }
+            }
+
+
+                public void WriteTextMessage(TcpClient client, string message)
             {
                 var stream = new StreamWriter(client.GetStream(), Encoding.ASCII);
                 stream.WriteLine(message);
