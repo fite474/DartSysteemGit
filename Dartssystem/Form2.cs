@@ -20,15 +20,15 @@ namespace Dartssystem
         public StartingForm()
         {
             InitializeComponent();
-            client = new Client();
+            this.client = new Client();
             if(client!=null)
             {
                 WelkomLabel.Text = "Verbonden met server";
             }
             //gamescreen = new DartsScoreboard();
             lobbyForm = new LobbyForm();
-            lobbyForm.Client = client;
-            SetTimer();
+            lobbyForm.Client = this.client;
+           // SetTimer();
             
         }
 
@@ -41,22 +41,29 @@ namespace Dartssystem
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            string response = client.ReadTextMessage(client.TCPClient);
-            if(response.Equals("0000"))
-            {
-                //gamescreen.ShowDialog();
-            }
-           
+           // lobbyForm.ShowDialog();
+            // string response = client.ReadTextMessage(client.TCPClient);
+            //if(response.Equals("0000"))
+            //{
+            //    //gamescreen.ShowDialog();
+            //}
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string response = client.ReadTextMessage(client.TCPClient);
-            Console.WriteLine(response);
-            string name = ("SendName" + playerNameTextbox.Text);
+            //string response = client.ReadTextMessage(client.TCPClient);
+            //Console.WriteLine(response);
+            string name = ("+AddName+" + playerNameTextbox.Text);
             client.WriteTextMessage(client.TCPClient, name);
-            //lobbyForm
-            lobbyForm.ShowDialog();
+            string response = client.ReadTextMessage(client.TCPClient);
+            //if (response.Contains("PlayerNames"))
+            //{
+                lobbyForm.ShowDialog();
+            //}
+            //lobbyForm.UpdatePlayerList();
+            
+            
 
         }
 

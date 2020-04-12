@@ -15,9 +15,8 @@ namespace Dartssystem
        // Client client;
         private static System.Timers.Timer timer;
         public List<String> _clientnames = new List<string>();
-        private Client client;
-
-        internal Client Client { get => client; set => client = value; }
+       
+        internal Client Client { get; set; }
 
         public LobbyForm()
         {
@@ -26,9 +25,10 @@ namespace Dartssystem
             {
                 Client = new Client();
             }
-            
+
             //listView1.
-             SetTimer();
+            
+            SetTimer();
 
         }
 
@@ -39,11 +39,27 @@ namespace Dartssystem
         timer.AutoReset = true;
     }
 
+        public void UpdatePlayerList()
+        {
+            
+            //string response = Client.ReadTextMessage(Client.TCPClient);
+            //if (response.Contains("playerNames"))
+            //{
+            //    _clientnames.Add(response);
+            //}
+            //foreach (string waitingPlayers in _clientnames)
+            //{
+            //    //var players = _clientnames[0]; ;
+            //    listView1.Items.Add(waitingPlayers);
+            //}
+        }
+
     private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
         string response = Client.ReadTextMessage(Client.TCPClient);
         if (response.Contains("playerNames"))
         {
+                Console.WriteLine("dsd");
            // _clientnames.Add(response);
         }
 
@@ -58,15 +74,25 @@ namespace Dartssystem
 
         private void testButton_Click(object sender, EventArgs e)
         {
+            if (listView1.Items.Count != 0)
+            {
+                Client.WriteTextMessage(Client.TCPClient, "+SendName+");
+            }
+            
+
+
             string response = Client.ReadTextMessage(Client.TCPClient);
             if (response.Contains("playerNames"))
             {
                 _clientnames.Add(response);
             }
-            //client.ReadTextMessage(client.TCPClient);
-            var item1 = new ListViewItem(new[] { "text1", "text2", "text3", "text4" });
-            var players = _clientnames[0]; ;
-            listView1.Items.Add(players);
+            foreach (string waitingPlayers in _clientnames)
+            {
+                //var players = _clientnames[0]; ;
+                listView1.Items.Add(waitingPlayers);
+            }
+            Console.WriteLine("sdd");
+            
         }
     }
 }

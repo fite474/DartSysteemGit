@@ -21,29 +21,49 @@ namespace Dartssystem
         }
         public void WriteTextMessage(TcpClient client, string message)
         {
-            var stream = new StreamWriter(client.GetStream(), Encoding.ASCII);
-            stream.WriteLine(message);
-            stream.Flush();
+            NetworkStream stream = client.GetStream();
+
+
+            Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+            stream.Write(data, 0, data.Length);
+
+            //var stream = new StreamWriter(client.GetStream(), Encoding.ASCII);
+            //stream.WriteLine(message);
+            //stream.Flush();
         }
 
         public string ReadTextMessage(TcpClient client)
         {
-            StreamReader stream = new StreamReader(client.GetStream(), Encoding.ASCII);
-            try
-            {
-                string line = stream.ReadLine();
-                if (line.Contains("playerNames"))
-                {
-                    _clientnames.Add(line);
-                }
-                
-                return line; ;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("ERROR");
-                return "ERROR";
-            }
+            NetworkStream stream = client.GetStream();
+
+            Byte[] data = new Byte[256];
+
+            // String to store the response ASCII representation.
+            String responseData = String.Empty;
+
+            // Read the first batch of the TcpServer response bytes.
+            Int32 bytes = stream.Read(data, 0, data.Length);
+            responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+            Console.WriteLine("Client Received: {0}", responseData);
+
+
+
+            //StreamReader stream = new StreamReader(client.GetStream(), Encoding.ASCII);
+            //try
+            //{
+            //    string line = stream.ReadLine();
+            //    if (line.Contains("playerNames"))
+            //    {
+            //        _clientnames.Add(line);
+            //    }
+
+            return responseData;//line; ;
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("ERROR");
+            //    return "ERROR";
+            //}
         }
     }
 }
