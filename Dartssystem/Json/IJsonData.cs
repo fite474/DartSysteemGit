@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dartssystem.Network
+namespace Dartssystem.Json
 {
-    public enum DataType
+    interface IJsonData
     {
-        Login,
-        Logout,
-        SendClientNames
-
     }
 }

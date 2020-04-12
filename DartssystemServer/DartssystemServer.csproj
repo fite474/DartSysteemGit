@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Json\IJsonData.cs" />
+    <Compile Include="Json\JsonClientNames.cs" />
+    <Compile Include="Json\JsonGetClientNamesResponse.cs" />
+    <Compile Include="Json\JsonHelper.cs" />
+    <Compile Include="Json\JsonLogin.cs" />
+    <Compile Include="Json\JsonResponse.cs" />
+    <Compile Include="Network\AuthorizationTask.cs" />
     <Compile Include="Network\ClientData.cs" />
     <Compile Include="Network\ClientTask.cs" />
     <Compile Include="Network\Crypto.cs" />

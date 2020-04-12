@@ -16,6 +16,7 @@ namespace Dartssystem
         Client client;
         Form gamescreen;
         LobbyForm lobbyForm;
+        public String Name { get; set; }
         private static System.Timers.Timer timer;
         public StartingForm()
         {
@@ -26,11 +27,12 @@ namespace Dartssystem
                 WelkomLabel.Text = "Verbonden met server";
             }
             //gamescreen = new DartsScoreboard();
-            lobbyForm = new LobbyForm();
-            lobbyForm.Client = this.client;
+            //lobbyForm = new LobbyForm();
+            //lobbyForm.Client = this.client;
            // SetTimer();
             
         }
+
 
         private void SetTimer()
         {
@@ -52,11 +54,12 @@ namespace Dartssystem
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Name = playerNameTextbox.Text;
             //string response = client.ReadTextMessage(client.TCPClient);
             //Console.WriteLine(response);
-            string name = ("+AddName+" + playerNameTextbox.Text);
-            client.WriteTextMessage(client.TCPClient, name);
-            string response = client.ReadTextMessage(client.TCPClient);
+            //string name = ("+AddName+" + playerNameTextbox.Text);
+            //client.WriteTextMessage(client.TCPClient, name);
+            //string response = client.ReadTextMessage(client.TCPClient);
             //if (response.Contains("PlayerNames"))
             //{
                 lobbyForm.ShowDialog();

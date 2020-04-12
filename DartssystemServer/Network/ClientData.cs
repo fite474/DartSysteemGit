@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,13 +10,13 @@ namespace DartssystemServer.Network
     public class ClientData : IUserData
     {
         public string Name { get; }
-        public string Id { get; }
+        public TcpClient TcpClient { get; }
 
 
-        public ClientData(string name, string id)
+        public ClientData(TcpClient tcpClient, string name)
         {
             Name = name;
-            Id = id;
+            TcpClient = tcpClient;
 
         }
     }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Dartssystem.Json;
+using DartssystemServer.Json;
 
 namespace Dartssystem.Network
 {
@@ -26,18 +29,17 @@ namespace Dartssystem.Network
             network.Dispose();
         }
 
-        public void RequestLogin(string username, string password)
+        public void RequestLogin(TcpClient tcpClient, string name)
         {
-            //var loginRequest = new Datagram();
-            //loginRequest.DataType = DataType.Login;
-            //loginRequest.Data = new JsonLogin
-            //{
-            //    IsDoctorProgram = false,
-            //    Id = username,
-            //    Password = password
-            //};
-            //network.SendDatagram(loginRequest);
-            ////TODO check if sync is not needed
+            var loginRequest = new Datagram();
+            loginRequest.DataType = DataType.Login;
+            loginRequest.Data = new JsonLogin
+            {
+                TcpClient = tcpClient,
+                Name = name
+            };
+            network.SendDatagram(loginRequest);
+            //TODO check if sync is not needed
 
         }
 

@@ -10,14 +10,15 @@ namespace Dartssystem
 {
     class Client
     {
-        public List<String> _clientnames = new List<string>();
+        public List<String> _clientnames { get; set; } //= new List<string>();
         public TcpClient TCPClient { get; set; }
         public Client()
         {
             //TCPClient = new TcpClient("192.168.178.15", 1330);
             //TCPClient = new TcpClient("192.168.1.141", 25565);
             TCPClient = new TcpClient("80.114.189.94", 25565);
-            
+            _clientnames = new List<string>();
+
         }
         public void WriteTextMessage(TcpClient client, string message)
         {

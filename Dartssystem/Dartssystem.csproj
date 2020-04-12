@@ -63,6 +63,11 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Json\IJsonData.cs" />
+    <Compile Include="Json\JsonClientNames.cs" />
+    <Compile Include="Json\JsonGetClientNamesResponse.cs" />
+    <Compile Include="Json\JsonHelper.cs" />
+    <Compile Include="Json\JsonLogin.cs" />
     <Compile Include="LobbyForm.cs">
       <SubType>Form</SubType>
     </Compile>

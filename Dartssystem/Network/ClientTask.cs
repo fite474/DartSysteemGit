@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dartssystem.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace Dartssystem.Network
 
         public override void Start()
         {
-            OnTryPullDoctor();
+            //OnTryPullDoctor();
             Network.OnReceivedData += OnReceivedNextRequest;
         }
 
@@ -34,12 +35,22 @@ namespace Dartssystem.Network
         {
             switch (requestData.DataType)
             {
-                case DataType.AddBikeData:
-                    //var snapShot = JsonHelper.ToConcreteType<JsonBikeData>(requestData.Data);//.SessionSnapshot;
-                    //requestData.Data.ClientId = currentUser.Id;
-                    //currentUser.Sessions.Last().SessionSnapshots.Add(snapShot.SessionSnapshot);
-                    //doctor.SendToDoctor(requestData);
-                    break;
+                case DataType.SendClientNames:
+                    {
+                        JsonClientNames d = JsonHelper.ToConcreteType<JsonClientNames>(requestData.Data);
+
+
+                        SendToClient(new Datagram()
+                        {
+                            DataType = DataType.SendClientNames,
+                            Data = new JsonGetClientNamesResponse()
+                            {
+                                //ClientNames = ;
+                            }
+                        });
+
+                        break;
+                    }
                 case DataType.Logout:
                     Stop();
                     break;
