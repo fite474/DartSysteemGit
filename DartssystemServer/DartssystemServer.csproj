@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,11 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Network\ClientData.cs" />
+    <Compile Include="Network\ClientTask.cs" />
+    <Compile Include="Network\Crypto.cs" />
+    <Compile Include="Network\DataType.cs" />
+    <Compile Include="Network\INetwork.cs" />
+    <Compile Include="Network\IUserData.cs" />
+    <Compile Include="Network\LockHelper.cs" />
+    <Compile Include="Network\Networking.cs" />
+    <Compile Include="Network\Datagram.cs" />
+    <Compile Include="Network\ServerNetwork.cs" />
+    <Compile Include="Network\TcpTask.cs" />
+    <Compile Include="Network\ThreadSafeList.cs" />
+    <Compile Include="Network\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

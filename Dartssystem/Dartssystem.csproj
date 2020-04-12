@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,6 +69,18 @@
     <Compile Include="LobbyForm.Designer.cs">
       <DependentUpon>LobbyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Network\ClientData.cs" />
+    <Compile Include="Network\ClientTask.cs" />
+    <Compile Include="Network\Crypto.cs" />
+    <Compile Include="Network\Datagram.cs" />
+    <Compile Include="Network\DataType.cs" />
+    <Compile Include="Network\INetwork.cs" />
+    <Compile Include="Network\IUserData.cs" />
+    <Compile Include="Network\LockHelper.cs" />
+    <Compile Include="Network\Networking.cs" />
+    <Compile Include="Network\ServerNetwork.cs" />
+    <Compile Include="Network\TcpTask.cs" />
+    <Compile Include="Network\ThreadSafeList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -87,6 +102,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

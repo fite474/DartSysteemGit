@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DartsystemServer
+namespace DartsystemServer.Network
 {
     class Program
     {
@@ -102,7 +102,7 @@ namespace DartsystemServer
                         //    Console.WriteLine("Client {0} has disconnected from the Game(s) Server.", endPoint);
                         //}
                     }
-                    Task.WaitAll(newConnectionTasks.ToArray(), 1000);
+                    //Task.WaitAll(newConnectionTasks.ToArray(), 1000);
 
                     //    // Once we have enough clients for the next game, add them in and start the game
                     //    if (_waitingLobby.Count >= _nextGame.RequiredPlayers)
@@ -301,6 +301,7 @@ namespace DartsystemServer
             {
 
                 IPAddress host = IPAddress.Parse("127.0.0.1");
+                
                 lobby = new Lobby("NAAM", 25565);
                 lobby.Run();
                 //TcpListener listener = new System.Net.Sockets.TcpListener(IPAddress.Any, 1330);
